@@ -1,95 +1,98 @@
-import Image from 'next/image'
-import styles from './page.module.css'
-
+"use client";
+import {Button, Col, Row, Table} from "antd";
+import styles from "./page.module.css";
+import {useState} from "react";
+import {Grid} from "@mui/material";
+import AddModal from "@/components/Modal";
+const columns = [
+  {
+    title: "Name",
+    dataIndex: "name",
+  },
+  {
+    title: "Age",
+    dataIndex: "age",
+  },
+  {
+    title: "Address",
+    dataIndex: "address",
+  },
+];
+const data = [];
+for (let i = 0; i < 46; i++) {
+  data.push({
+    key: i,
+    name: `Edward King ${i}`,
+    age: 32,
+    address: `London, Park Lane no. ${i}`,
+  });
+}
 export default function Home() {
+  const [selectedRowKeys, setSelectedRowKeys] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [OpenAddModal, setOpenAddModal] = useState(false);
+  const start = () => {
+    setLoading(true);
+    // ajax request after empty completing
+    setTimeout(() => {
+      setSelectedRowKeys([]);
+      setLoading(false);
+    }, 1000);
+  };
+  const onSelectChange = (newSelectedRowKeys) => {
+    console.log("selectedRowKeys changed: ", newSelectedRowKeys);
+    setSelectedRowKeys(newSelectedRowKeys);
+  };
+  const rowSelection = {
+    selectedRowKeys,
+    onChange: onSelectChange,
+  };
+  const hasSelected = selectedRowKeys.length > 0;
+  const HandleOpenAddModal = () => {
+    setOpenAddModal(!OpenAddModal);
+  };
   return (
     <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.js</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+      <Grid container spacing={2}>
+        <Grid item xs={12}>
+          <div
+            style={{
+              marginBottom: 16,
+            }}
           >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
+            <Button type="primary" onClick={start} disabled={!hasSelected} loading={loading}>
+              remove
+            </Button>
+            <Button type="primary" onClick={HandleOpenAddModal} loading={loading}>
+              add
+            </Button>
+            <span
+              style={{
+                marginLeft: 8,
+              }}
+            >
+              {hasSelected ? `Selected ${selectedRowKeys.length} items` : ""}
+            </span>
+          </div>
+          <Table
+            rowSelection={rowSelection}
+            columns={columns}
+            dataSource={data}
+            pagination={false}
+          />
+        </Grid>
 
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
+        <AddModal
+          title="sdsdsd"
+          open={OpenAddModal}
+          // onOk={value === 'Folder' ? handleSaveFolder : handleSaveFile}
+          // onCancel={HandleCloseAddFileModal}
+          okText="dfdfdf"
+          cancelText="ds"
         >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore the Next.js 13 playground.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
+          sdsdsd
+        </AddModal>
+      </Grid>
     </main>
-  )
+  );
 }

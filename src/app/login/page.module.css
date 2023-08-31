@@ -1,0 +1,33 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6rem;
+  min-height: 100vh;
+
+  background-image: linear-gradient(to right, #9796f0, #fbc7d4);
+}
+.form {
+  background: "#eeee" !important;
+  padding: "85px" !important;
+  position: "relative" !important;
+  border-radius: " 6px" !important;
+  box-shadow: " rgba(0, 0, 0, 0.24) 0px 3px 8px" !important;
+  position: "relative" !important;
+
+}
+.btn {
+  width: 100%;
+}
+.useroutline {
+  background: " #eee";
+  padding: "22px";
+  width: "76px";
+  position: "absolute";
+  top: "1%";
+  left: " 50%";
+  transform: "translate(-50%, -50%)";
+  border-radius: "50%";
+  box-shadow: " rgba(0, 0, 0, 0.24) 0px 3px 8px";
+}
