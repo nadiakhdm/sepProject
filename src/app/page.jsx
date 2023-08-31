@@ -1,9 +1,12 @@
 "use client";
+import {useRouter} from "next/navigation";
 import {Button, Col, Row, Table} from "antd";
 import styles from "./page.module.css";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {Grid} from "@mui/material";
 import AddModal from "@/components/Modal";
+import { Suspense } from 'react';
+import {Loading} from './loading'
 const columns = [
   {
     title: "Name",
@@ -28,9 +31,20 @@ for (let i = 0; i < 46; i++) {
   });
 }
 export default function Home() {
+  const router = useRouter();
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [loading, setLoading] = useState(false);
   const [OpenAddModal, setOpenAddModal] = useState(false);
+
+  // این قسمت را می‌توانید با چک کردن وجود توکن و شرایط دیگر تغییر دهید
+  const isTokenEmpty = true; // تست: توکن خالی است
+  const isLoggedIn = true; // تست: کاربر وارد شده است
+
+  useEffect(() => {
+    // if (isTokenEmpty && !isLoggedIn) {
+    // router.push("/login"); // هدایت به صفحه لاگین
+    // }
+  }, []);
   const start = () => {
     setLoading(true);
     // ajax request after empty completing
@@ -53,7 +67,8 @@ export default function Home() {
   };
   return (
     <main className={styles.main}>
-      <Grid container spacing={2}>
+        <Suspense fallback={<Loading/>}>
+        <Grid container spacing={2}>
         <Grid item xs={12}>
           <div
             style={{
@@ -93,6 +108,8 @@ export default function Home() {
           sdsdsd
         </AddModal>
       </Grid>
+      </Suspense>
+ 
     </main>
   );
 }
