@@ -1,14 +1,12 @@
 import {useState, useEffect} from "react";
 import {makeStyles} from "@mui/styles";
 import {useDispatch} from "react-redux";
-import {getUserRequest} from "@/actions/user";
-// import User from "../../logics/logics/user/User";
+
 import useRedux from "../../customHooks/useRedux";
-// import useGenerator from "../../customHooks/useGenerator";
-
-
-//
-// const userObj = User.make();
+import {getokenService} from "@/logics/User";
+import axios from "axios";
+import {SepApi} from "@/api/sep-api-constants";
+import {UserActions} from "@/actions/user";
 
 const useStyles = makeStyles({
   main: {
@@ -53,11 +51,11 @@ const useStyles = makeStyles({
     width: " 100%",
   },
 });
-const LoginLogic = (history) => {
+const LoginLogic = () => {
   const dispatch = useDispatch();
   /*---------------------- states ------------------- */
   const [state, setState] = useState({
-    username: "",
+    email: "",
     password: "",
   });
   const classes = useStyles();
@@ -73,9 +71,17 @@ const LoginLogic = (history) => {
       [e.target.name]: e.target.value,
     });
   };
-  const onFinish = async (values) => {
-    console.log("Success:", values);
-    await dispatch(getUserRequest(values));
+  const onFinish = async () => {
+    // await getokenService(state);
+    try {
+      const response = await axios.post(`https://reqres.in/api/login`, state);
+
+      dispatch(UserActions.getoken(response.token));
+      route.push("/");
+      toast("success", {hideProgressBar: true, autoClose: 2000, type: "success"});
+    } catch (error) {
+      console.error(error);
+    }
   };
   /*------------------------------------------------- */
   return {
