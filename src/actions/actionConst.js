@@ -5,6 +5,7 @@ export const SepConst = {
 /*-------------------------- user ---------------------- */
 export const userConnst = {
   GET_TOKEN: "GET_TOKEN",
+  FAIL_TOKEN: "FAIL_TOKEN",
   GET_ALL_USER: "GET_ALL_USER",
 };
 export const ESP_LIST_VIEW_PARAMS = {

@@ -1,13 +1,10 @@
 import {useState, useEffect} from "react";
 import {makeStyles} from "@mui/styles";
-import {useDispatch} from "react-redux";
 
 import useRedux from "../../customHooks/useRedux";
-import {getokenService} from "@/logics/User";
-import axios from "axios";
-import {SepApi} from "@/api/sep-api-constants";
-import {UserActions} from "@/actions/user";
 
+import {UserActions} from "@/actions/user";
+import {useRouter} from "next/navigation";
 const useStyles = makeStyles({
   main: {
     display: "flex",
@@ -52,7 +49,8 @@ const useStyles = makeStyles({
   },
 });
 const LoginLogic = () => {
-  const dispatch = useDispatch();
+  const router = useRouter();
+  const {user, dispatch} = useRedux();
   /*---------------------- states ------------------- */
   const [state, setState] = useState({
     email: "",
@@ -61,8 +59,10 @@ const LoginLogic = () => {
   const classes = useStyles();
 
   useEffect(() => {
-    console.log("state", state);
-  }, [state]);
+    if (user.isAuth) {
+      router.push("/");
+    }
+  }, [user.isAuth]);
   /*-------------------- functions ------------------ */
 
   const handleChange = (e) => {
@@ -72,16 +72,7 @@ const LoginLogic = () => {
     });
   };
   const onFinish = async () => {
-    // await getokenService(state);
-    try {
-      const response = await axios.post(`https://reqres.in/api/login`, state);
-
-      dispatch(UserActions.getoken(response.token));
-      route.push("/");
-      toast("success", {hideProgressBar: true, autoClose: 2000, type: "success"});
-    } catch (error) {
-      console.error(error);
-    }
+    await dispatch(UserActions.getToken(state));
   };
   /*------------------------------------------------- */
   return {

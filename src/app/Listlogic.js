@@ -11,7 +11,6 @@ const useStyles = makeStyles({
   },
 });
 
-
 const ListLogic = (history) => {
   const router = useRouter();
   const [User, setUser] = useState({name: "", job: ""});
@@ -27,6 +26,7 @@ const ListLogic = (history) => {
       router.push("/login");
     }
   }, []);
+
   /*-------------------- functions ------------------ */
   const handleChange = (e) => {
     setUser({

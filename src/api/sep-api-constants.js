@@ -1,5 +1,10 @@
-let SepApi = null; // Server Address for Rest API
+import axios from "axios";
+// Server Address for Rest API
+let SepApi = null;
+// console.log("process.env", process.env);
+// SepApi = process.env.SEP_URL_APP;
 
-SepApi = process.env.SEP_URL_APP;
+SepApi = "https://reqres.in";
 
-export {SepApi};
+const axiosInctanc = axios.create({});
+export {SepApi, axiosInctanc};
