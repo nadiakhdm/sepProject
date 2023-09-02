@@ -1,15 +1,10 @@
 import {useState, useEffect} from "react";
 import {makeStyles} from "@mui/styles";
-import {useDispatch} from "react-redux";
-import {getUserRequest} from "@/actions/user";
-// import User from "../../logics/logics/user/User";
+
 import useRedux from "../../customHooks/useRedux";
-// import useGenerator from "../../customHooks/useGenerator";
 
-
-//
-// const userObj = User.make();
-
+import {UserActions} from "@/actions/user";
+import {useRouter} from "next/navigation";
 const useStyles = makeStyles({
   main: {
     display: "flex",
@@ -53,18 +48,21 @@ const useStyles = makeStyles({
     width: " 100%",
   },
 });
-const LoginLogic = (history) => {
-  const dispatch = useDispatch();
+const LoginLogic = () => {
+  const router = useRouter();
+  const {user, dispatch} = useRedux();
   /*---------------------- states ------------------- */
   const [state, setState] = useState({
-    username: "",
+    email: "",
     password: "",
   });
   const classes = useStyles();
 
   useEffect(() => {
-    console.log("state", state);
-  }, [state]);
+    if (user.isAuth) {
+      router.push("/");
+    }
+  }, [user.isAuth]);
   /*-------------------- functions ------------------ */
 
   const handleChange = (e) => {
@@ -73,9 +71,8 @@ const LoginLogic = (history) => {
       [e.target.name]: e.target.value,
     });
   };
-  const onFinish = async (values) => {
-    console.log("Success:", values);
-    await dispatch(getUserRequest(values));
+  const onFinish = async () => {
+    await dispatch(UserActions.getToken(state));
   };
   /*------------------------------------------------- */
   return {

@@ -10,27 +10,19 @@ export default function Login() {
     <main className={classes.main}>
       <Suspense fallback={<Loading />}>
         <div>
-          <Form
-            name="normal_login"
-            initialValues={{remember: true}}
-            onFinish={onFinish}
-            className={` ${classes.login_form}`}
-          >
+          <Form onFinish={onFinish} className={` ${classes.login_form}`}>
             <div className={classes.useroutline}>
               <UserOutlined className={classes.useroutlineIcon} />
             </div>
-            <Form.Item name="username">
+            <Form.Item>
               <Input
-                name="username"
+                name="email"
                 prefix={<UserOutlined className={`site-form-item-icon${classes.userout}`} />}
                 onChange={handleChange}
-                placeholder="username"
+                placeholder="email"
               />
             </Form.Item>
-            <Form.Item
-              name="password"
-              rules={[{required: true, message: "Please input your Password!"}]}
-            >
+            <Form.Item>
               <Input
                 name="password"
                 prefix={<LockOutlined className={`site-form-item-icon${classes.userout}`} />}

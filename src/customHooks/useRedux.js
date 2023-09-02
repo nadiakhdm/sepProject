@@ -1,38 +1,16 @@
-import {useDispatch, useSelector} from "react-redux";
-// import {
-//   loaderSelector,
-//   callbackSelector,
-//   categorySelector,
-//   userSelector,
-//   aboutUsSelector,
-//   contactUsSelector,
-//   settingSelector,
-//   postSelector
-// } from "../reducer/selectors";
-import {Dispatch} from "redux";
+import {userSelector} from "@/reducer/selectors";
 
+import {useDispatch, useSelector} from "react-redux";
 const useRedux = () => {
   /*------------------------- use dispatch ------------------ */
   const dispatch = useDispatch();
-  // const loader = useSelector(loaderSelector);
-  // const callback = useSelector(callbackSelector);
-  // const category = useSelector(categorySelector);
-  // const user = useSelector(userSelector);
-  // const setting = useSelector(settingSelector);
-  // const post =useSelector(postSelector);
-  // const aboutUs = useSelector(aboutUsSelector);
-  // const contactUs = useSelector(contactUsSelector);
+  /*------------------------- user ------------------ */
+  const user = useSelector(userSelector);
+
   /*--------------------------------------------------------- */
   return {
     dispatch,
-    // loader,
-    // callback,
-    // category,
-    // user,
-    // aboutUs,
-    // contactUs,
-    // post,
-    // setting
+    user,
   };
 };
 

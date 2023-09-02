@@ -13,6 +13,13 @@ class ApiService {
     return this._method;
   }
 
+  set body(newbody) {
+    this._body = newbody;
+  }
+  get body() {
+    return this._body;
+  }
+
   set method(newMethod) {
     this._method = newMethod;
   }
@@ -25,11 +32,11 @@ class ApiService {
     this._headers = newHeaders;
   }
 
-  getRequest(reBody) {
+  getRequest() {
     return {
       method: this._method,
       headers: this._headers,
-      body: this._method === "POST" ? JSON.stringify(reBody) : null,
+      data: this._method === "POST" ? JSON.stringify(this._body) : null,
     };
   }
 }

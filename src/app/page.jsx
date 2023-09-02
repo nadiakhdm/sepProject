@@ -1,12 +1,14 @@
 "use client";
-import {useRouter} from "next/navigation";
-import {Button, Col, Row, Table} from "antd";
-import styles from "./page.module.css";
-import {useEffect, useState} from "react";
+
+import {Suspense} from "react";
+import {Button, Col, Input, Row, Table} from "antd";
 import {Grid} from "@mui/material";
+//component
+import styles from "./page.module.css";
 import AddModal from "@/components/Modal";
-import { Suspense } from 'react';
-import {Loading} from './loading'
+import {Loading} from "./loading";
+import ListLogic from "./Listlogic";
+
 const columns = [
   {
     title: "Name",
@@ -30,86 +32,78 @@ for (let i = 0; i < 46; i++) {
     address: `London, Park Lane no. ${i}`,
   });
 }
-export default function Home() {
-  const router = useRouter();
-  const [selectedRowKeys, setSelectedRowKeys] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [OpenAddModal, setOpenAddModal] = useState(false);
-
-  // این قسمت را می‌توانید با چک کردن وجود توکن و شرایط دیگر تغییر دهید
-  const isTokenEmpty = true; // تست: توکن خالی است
-  const isLoggedIn = true; // تست: کاربر وارد شده است
-
-  useEffect(() => {
-    // if (isTokenEmpty && !isLoggedIn) {
-    // router.push("/login"); // هدایت به صفحه لاگین
-    // }
-  }, []);
-  const start = () => {
-    setLoading(true);
-    // ajax request after empty completing
-    setTimeout(() => {
-      setSelectedRowKeys([]);
-      setLoading(false);
-    }, 1000);
-  };
-  const onSelectChange = (newSelectedRowKeys) => {
-    console.log("selectedRowKeys changed: ", newSelectedRowKeys);
-    setSelectedRowKeys(newSelectedRowKeys);
-  };
-  const rowSelection = {
+export default function UserList() {
+  const {
+    User,
+    loading,
+    router,
     selectedRowKeys,
-    onChange: onSelectChange,
-  };
-  const hasSelected = selectedRowKeys.length > 0;
-  const HandleOpenAddModal = () => {
-    setOpenAddModal(!OpenAddModal);
-  };
+    handleChange,
+    handleAddUser,
+    HandleCloseAddModal,
+    OpenAddModal,
+    HandleOpenAddModal,
+    start,
+    onSelectChange,
+    rowSelection,
+    hasSelected,
+    classes,
+  } = ListLogic();
+
   return (
     <main className={styles.main}>
-        <Suspense fallback={<Loading/>}>
+      <Suspense fallback={<Loading />}>
         <Grid container spacing={2}>
-        <Grid item xs={12}>
-          <div
-            style={{
-              marginBottom: 16,
-            }}
-          >
-            <Button type="primary" onClick={start} disabled={!hasSelected} loading={loading}>
-              remove
-            </Button>
-            <Button type="primary" onClick={HandleOpenAddModal} loading={loading}>
-              add
-            </Button>
-            <span
-              style={{
-                marginLeft: 8,
-              }}
-            >
-              {hasSelected ? `Selected ${selectedRowKeys.length} items` : ""}
-            </span>
-          </div>
-          <Table
-            rowSelection={rowSelection}
-            columns={columns}
-            dataSource={data}
-            pagination={false}
-          />
-        </Grid>
+          <Grid item xs={12}>
+            <div>
+              <Button
+                type="primary"
+                className={classes.btn}
+                onClick={start}
+                disabled={!hasSelected}
+                loading={loading}
+              >
+                Delete
+              </Button>
+              <Button type="primary" className={classes.btn} onClick={HandleOpenAddModal}>
+                add User
+              </Button>
+              <span
+                style={{
+                  marginLeft: 8,
+                }}
+              >
+                {hasSelected ? `Selected ${selectedRowKeys.length} items` : ""}
+              </span>
+            </div>
+            <Table
+              rowSelection={rowSelection}
+              columns={columns}
+              dataSource={data}
+              pagination={false}
+            />
+          </Grid>
 
-        <AddModal
-          title="sdsdsd"
-          open={OpenAddModal}
-          // onOk={value === 'Folder' ? handleSaveFolder : handleSaveFile}
-          // onCancel={HandleCloseAddFileModal}
-          okText="dfdfdf"
-          cancelText="ds"
-        >
-          sdsdsd
-        </AddModal>
-      </Grid>
+          <AddModal
+            title="Add user"
+            open={OpenAddModal}
+            onOk={handleAddUser}
+            onCancel={HandleCloseAddModal}
+            okText="Add"
+            cancelText="Cancel"
+          >
+            <Grid container spacing={2}>
+              <Grid item xs={6}>
+                <Input value={User.name} name="name" placeholder="name" onChange={handleChange} />
+              </Grid>
+              <Grid item xs={6}>
+                <Input value={User.job} name="job" placeholder="job" onChange={handleChange} />
+              </Grid>
+            </Grid>
+          </AddModal>
+        </Grid>
       </Suspense>
- 
     </main>
   );
+  ر;
 }
