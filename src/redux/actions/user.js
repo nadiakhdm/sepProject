@@ -56,6 +56,7 @@ function getSingleUser(user) {
     const response = await getSingleUserService(user);
     if (response && String(response.status).match(/20[01]/)) {
       dispatch(success(response.data));
+      toast("success addUser", {hideProgressBar: true, autoClose: 2000, type: "success"});
     } else {
       dispatch(failure(" FAILED!!!"));
       toast("fail login", {hideProgressBar: true, autoClose: 2000, type: "error"});

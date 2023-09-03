@@ -28,9 +28,9 @@ const ListLogic = (history) => {
   }, []);
 
   useEffect(() => {
-    setData({...data, users: user.allUser});
-    const keysArray = user.allUser.map((obj) => Object.keys(obj));
-    let columnKey = keysArray[1];
+    setData({...data, users: user.allUser && user.allUser});
+    const keysArray = user.allUser && user.allUser.map((obj) => Object.keys(obj));
+    let columnKey = keysArray && keysArray[1];
     var customecolumn =
       columnKey &&
       columnKey.map((itm) => ({
@@ -45,8 +45,12 @@ const ListLogic = (history) => {
   }, [user.allUser, user.total_pages]);
 
   useEffect(() => {
-    console.log("total_pages", user.total_pages);
+    console.log("user", user);
   }, [user.total_pages]);
+  useEffect(() => {}, []);
+  if (!user.isAuth) {
+    router.push("/login");
+  }
   /*-------------------- functions ------------------ */
   const handleChange = (e) => {
     setUser({

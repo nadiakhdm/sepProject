@@ -59,7 +59,9 @@ const LoginLogic = () => {
   const classes = useStyles();
 
   /*-------------------- functions ------------------ */
-
+  // if (user.isAuth) {
+  //   router.push("/");
+  // }
   const handleChange = (e) => {
     setState({
       ...state,
