@@ -1,4 +1,4 @@
-import {userSelector} from "@/reducer/selectors";
+import {userSelector} from "@/redux/reducer/selectors";
 
 import {useDispatch, useSelector} from "react-redux";
 const useRedux = () => {

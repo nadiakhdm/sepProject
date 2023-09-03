@@ -3,7 +3,7 @@ import {makeStyles} from "@mui/styles";
 
 import useRedux from "../../customHooks/useRedux";
 
-import {UserActions} from "@/actions/user";
+import {UserActions} from "@/redux/actions/user";
 import {useRouter} from "next/navigation";
 const useStyles = makeStyles({
   main: {
@@ -58,11 +58,6 @@ const LoginLogic = () => {
   });
   const classes = useStyles();
 
-  useEffect(() => {
-    if (user.isAuth) {
-      router.push("/");
-    }
-  }, [user.isAuth]);
   /*-------------------- functions ------------------ */
 
   const handleChange = (e) => {
