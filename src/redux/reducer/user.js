@@ -27,9 +27,7 @@ const user = baseReducer(initialState, {
       total: action.payload4,
     };
   },
-  [userConnst.GET_SINGLE_USER](state, action) {
-    return {...state, SingleUser: action.payload};
-  },
+
 });
 
 export default user;

@@ -16,7 +16,8 @@ export default function RootLayout({children}) {
     <html lang="en">
       <body className={inter.className}>
         <ReduxProvider>
-                  {children}
+          <SepProvider>{children}</SepProvider>
+
           <ToastContainer />
         </ReduxProvider>
       </body>

@@ -59,9 +59,7 @@ const LoginLogic = () => {
   const classes = useStyles();
 
   /*-------------------- functions ------------------ */
-  // if (user.isAuth) {
-  //   router.push("/");
-  // }
+
   const handleChange = (e) => {
     setState({
       ...state,
@@ -71,6 +69,9 @@ const LoginLogic = () => {
   const onFinish = async () => {
     await dispatch(UserActions.getToken(state));
   };
+  if (user.token) {
+    router.push("/");
+  }
   /*------------------------------------------------- */
   return {
     handleChange,

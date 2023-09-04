@@ -45,13 +45,11 @@ const ListLogic = (history) => {
     setPage(user.page);
   }, [user.allUser, user.total_pages]);
 
-  useEffect(() => {
-    console.log("user", user);
-  }, [user.total_pages]);
   useEffect(() => {}, []);
-  if (!user.isAuth) {
+  if (!user.token) {
     router.push("/login");
   }
+
   /*-------------------- functions ------------------ */
   const handleChange = (e) => {
     setUser({

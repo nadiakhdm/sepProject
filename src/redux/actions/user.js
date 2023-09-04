@@ -61,8 +61,8 @@ export const removeToken = () => ({
 function getDeleteUser(Id) {
   return async (dispatch) => {
     const response = await getDeleteUserService(Id);
-    debugger;
-    if (response && String(response.status).match(/20[01]/)) {
+    const pattern = /^20[0-9]$/;
+    if (response && pattern.test(String(response.status))) {
       dispatch(success(response.data));
       toast("success delete", {hideProgressBar: true, autoClose: 2000, type: "success"});
     } else {
@@ -73,12 +73,12 @@ function getDeleteUser(Id) {
 
   function success(data) {
     return {
-      type: userConnst.GET_ALL_USER,
+      type: userConnst.DELETE_SUCCESS,
       payload1: data,
     };
   }
   function failure(error) {
-    return {type: userConnst.GET_ALL_USER_FAIL};
+    return {type: userConnst.DELETE_SUCCESS_FAIL};
   }
 }
 
@@ -96,12 +96,12 @@ function getSingleUser(user) {
 
   function success(data) {
     return {
-      type: userConnst.GET_SINGLE_USER,
+      type: userConnst.GET_ALL_USER,
       payload1: data,
     };
   }
   function failure(error) {
-    return {type: userConnst.GET_SINGLE_USER_FAIL};
+    return {type: userConnst.GET_ALL_USER_FAIL};
   }
 }
 export const UserActions = {

@@ -3,7 +3,8 @@ import {Form, Input, Button} from "antd";
 import {LockOutlined, UserOutlined} from "@ant-design/icons";
 import {Suspense} from "react";
 import Loading from "./loading";
-import LoginLogic from "./LoginLogic";
+import LoginLogic from "./loginLogic";
+
 export default function Login() {
   const {handleChange, onFinish, classes} = LoginLogic();
   return (

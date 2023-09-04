@@ -9,22 +9,6 @@ import AddModal from "@/components/Modal";
 import {Loading} from "./loading";
 import ListLogic from "./Listlogic";
 import {UserActions} from "@/redux/actions/user";
-import EnhancedTable from "@/components/Table";
-
-const dataSource = [
-  {
-    key: "1",
-    name: "Mike",
-    age: 32,
-    address: "10 Downing Street",
-  },
-  {
-    key: "2",
-    name: "John",
-    age: 42,
-    address: "10 Downing Street",
-  },
-];
 
 export default function UserList() {
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
