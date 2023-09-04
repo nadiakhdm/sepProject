@@ -9,51 +9,25 @@ import AddModal from "@/components/Modal";
 import {Loading} from "./loading";
 import ListLogic from "./Listlogic";
 import {UserActions} from "@/redux/actions/user";
+import ComponentWrapper from "../components/componentWraper";
 
-export default function UserList() {
-  const [selectedRowKeys, setSelectedRowKeys] = useState([]);
+function UserList() {
   const {
     User,
+    user,
+    hasSelected,
+    rowSelection,
+    start,
     handleChange,
     handleAddUser,
     HandleCloseAddModal,
     OpenAddModal,
     HandleOpenAddModal,
-    classes,
-    user,
     data,
+    classes,
+    column,
     dispatch,
   } = ListLogic();
-  const [Id, setId] = useState(null);
-  const start = () => {
-    dispatch(UserActions.getDeleteUser(Id));
-  };
-
-  const onSelectChange = (newSelectedRowKeys) => {
-    console.log("selectedRowKeys changed: ", newSelectedRowKeys.toString());
-    setId(newSelectedRowKeys);
-    setSelectedRowKeys(newSelectedRowKeys);
-  };
-
-  const rowSelection = {
-    selectedRowKeys,
-    onChange: onSelectChange,
-  };
-  const hasSelected = selectedRowKeys.length > 0;
-  const columns = [
-    {
-      title: "id",
-      dataIndex: "id",
-    },
-    {
-      title: "email",
-      dataIndex: "email",
-    },
-    {
-      title: "first_name",
-      dataIndex: "first_name",
-    },
-  ];
 
   let total = user.total;
   return (
@@ -76,17 +50,15 @@ export default function UserList() {
               <Table
                 rowSelection={rowSelection}
                 dataSource={data.users}
-                columns={columns}
+                columns={column}
                 pagination={{
                   pageSize: 10,
                   total: total,
                   onChange: (p1, p2) => dispatch(UserActions.getAllUser(p1, p2)),
-                  // onChange: (p1, p2) => console.log(p1, p2),
                 }}
                 rowKey="id"
                 rowClassName="editable-row"
               />
-              {/* <EnhancedTable /> */}
             </div>
           </Grid>
 
@@ -112,3 +84,4 @@ export default function UserList() {
     </main>
   );
 }
+export default ComponentWrapper(UserList);

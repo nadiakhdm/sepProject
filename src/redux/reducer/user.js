@@ -22,12 +22,9 @@ const user = baseReducer(initialState, {
     return {
       ...state,
       allUser: action.payload1.data,
-      total_pages: action.payload2,
-      page: action.payload3,
       total: action.payload4,
     };
   },
-
 });
 
 export default user;

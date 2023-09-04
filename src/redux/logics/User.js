@@ -1,7 +1,7 @@
 import {SepApi, axiosInctanc} from "@/api/sep-api-constants";
 import ApiService from "../../api/apiServiceManager";
 
-export const getokenService = async (usr) => {
+const getokenService = async (usr) => {
   try {
     const apiService = new ApiService();
     apiService.method = "POST";
@@ -17,7 +17,7 @@ export const getokenService = async (usr) => {
   }
 };
 
-export const getAllUserService = async (page, per_page) => {
+const getAllUserService = async (page, per_page) => {
   try {
     const apiService = new ApiService();
     apiService.method = "GET";
@@ -33,7 +33,7 @@ export const getAllUserService = async (page, per_page) => {
     console.log(error);
   }
 };
-export const getSingleUserService = async (user) => {
+const getSingleUserService = async (user) => {
   try {
     const apiService = new ApiService();
     apiService.method = "POST";
@@ -51,7 +51,7 @@ export const getSingleUserService = async (user) => {
   }
 };
 
-export const getDeleteUserService = async (id) => {
+const getDeleteUserService = async (id) => {
   let iDes = id.toString();
 
   try {
@@ -70,4 +70,11 @@ export const getDeleteUserService = async (id) => {
   } catch (error) {
     console.log(error);
   }
+};
+
+export const UserService = {
+  getokenService,
+  getAllUserService,
+  getSingleUserService,
+  getDeleteUserService,
 };

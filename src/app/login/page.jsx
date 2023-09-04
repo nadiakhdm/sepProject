@@ -4,8 +4,8 @@ import {LockOutlined, UserOutlined} from "@ant-design/icons";
 import {Suspense} from "react";
 import Loading from "./loading";
 import LoginLogic from "./loginLogic";
-
-export default function Login() {
+import ComponentWrapper from "../../components/componentWraper";
+function Login() {
   const {handleChange, onFinish, classes} = LoginLogic();
   return (
     <main className={classes.main}>
@@ -47,3 +47,4 @@ export default function Login() {
     </main>
   );
 }
+export default ComponentWrapper(Login);

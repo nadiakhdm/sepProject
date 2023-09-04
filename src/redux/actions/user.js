@@ -1,15 +1,10 @@
-import {
-  getAllUserService,
-  getDeleteUserService,
-  getSingleUserService,
-  getokenService,
-} from "@/redux/logics/User";
+import {UserService} from "../logics/User";
 import {userConnst} from "./actionConst";
 import {toast} from "react-toastify";
 
 function getToken(data) {
   return async (dispatch) => {
-    const response = await getokenService(data);
+    const response = await UserService.getokenService(data);
     if (response && String(response.status).match(/20[01]/)) {
       dispatch(success(response.data));
 
@@ -32,7 +27,7 @@ function getToken(data) {
 }
 function getAllUser(page, per_page) {
   return async (dispatch) => {
-    const response = await getAllUserService(page, per_page);
+    const response = await UserService.getAllUserService(page, per_page);
     if (response && String(response.status).match(/20[01]/)) {
       dispatch(success(response.data, response.data.total_pages));
     } else {
@@ -45,8 +40,6 @@ function getAllUser(page, per_page) {
     return {
       type: userConnst.GET_ALL_USER,
       payload1: data,
-      payload2: total_pages,
-      payload3: data.page,
       payload4: data.total,
     };
   }
@@ -60,7 +53,7 @@ export const removeToken = () => ({
 
 function getDeleteUser(Id) {
   return async (dispatch) => {
-    const response = await getDeleteUserService(Id);
+    const response = await UserService.getDeleteUserService(Id);
     const pattern = /^20[0-9]$/;
     if (response && pattern.test(String(response.status))) {
       dispatch(success(response.data));
@@ -84,7 +77,7 @@ function getDeleteUser(Id) {
 
 function getSingleUser(user) {
   return async (dispatch) => {
-    const response = await getSingleUserService(user);
+    const response = await UserService.getSingleUserService(user);
     if (response && String(response.status).match(/20[01]/)) {
       dispatch(success(response.data));
       toast("success addUser", {hideProgressBar: true, autoClose: 2000, type: "success"});

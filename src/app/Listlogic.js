@@ -12,17 +12,18 @@ const useStyles = makeStyles({
   },
 });
 
-const ListLogic = (history) => {
-  const router = useRouter();
+const ListLogic = () => {
+  /*---------------------- states ------------------- */
   const [User, setUser] = useState({name: "", job: ""});
   const [OpenAddModal, setOpenAddModal] = useState(false);
   const [data, setData] = useState({users: null});
   const [column, setColumn] = useState(null);
+  const [selectedRowKeys, setSelectedRowKeys] = useState([]);
+  const [Id, setId] = useState(null);
+  /*---------------------- hock ------------------- */
   const classes = useStyles();
-  const [total_pages, settotal_pages] = useState(1);
-  const [page, setPage] = useState(null);
   const {user, dispatch} = useRedux();
-  /*---------------------- states ------------------- */
+  const router = useRouter();
 
   useEffect(() => {
     dispatch(UserActions.getAllUser(ESP_LIST_VIEW_PARAMS.page, ESP_LIST_VIEW_PARAMS.per_page));
@@ -41,14 +42,9 @@ const ListLogic = (history) => {
       }));
 
     setColumn(customecolumn);
-    settotal_pages(user.total_pages);
-    setPage(user.page);
-  }, [user.allUser, user.total_pages]);
+  }, [user.allUser]);
 
   useEffect(() => {}, []);
-  if (!user.token) {
-    router.push("/login");
-  }
 
   /*-------------------- functions ------------------ */
   const handleChange = (e) => {
@@ -79,10 +75,25 @@ const ListLogic = (history) => {
     });
   };
 
+  const onSelectChange = (newSelectedRowKeys) => {
+    setId(newSelectedRowKeys);
+    setSelectedRowKeys(newSelectedRowKeys);
+  };
+  const rowSelection = {
+    selectedRowKeys,
+    onChange: onSelectChange,
+  };
+  const start = () => {
+    dispatch(UserActions.getDeleteUser(Id));
+  };
+  const hasSelected = selectedRowKeys.length > 0;
   /*------------------------------------------------- */
   return {
     User,
     user,
+    hasSelected,
+    rowSelection,
+    start,
     handleChange,
     handleAddUser,
     HandleCloseAddModal,
@@ -94,8 +105,6 @@ const ListLogic = (history) => {
     signout,
     column,
     dispatch,
-    total_pages,
-    page,
   };
 };
 
