@@ -52,3 +52,23 @@ export const getSingleUserService = async (user) => {
     console.log(error);
   }
 };
+
+export const getDeleteUserService = async (id) => {
+  let iDes = id.toString();
+  debugger;
+  try {
+    const apiService = new ApiService();
+    apiService.method = "DELETE";
+
+    const request = apiService.getRequest();
+    const response = await axiosInctanc({
+      url: `${SepApi}/api/users/${iDes}`,
+      ...request,
+    });
+    if (response && String(response.status).match(/20[01]/)) {
+      return response;
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};

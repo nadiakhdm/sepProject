@@ -1,4 +1,9 @@
-import {getAllUserService, getSingleUserService, getokenService} from "@/redux/logics/User";
+import {
+  getAllUserService,
+  getDeleteUserService,
+  getSingleUserService,
+  getokenService,
+} from "@/redux/logics/User";
 import {userConnst} from "./actionConst";
 import {toast} from "react-toastify";
 
@@ -41,6 +46,8 @@ function getAllUser(page, per_page) {
       type: userConnst.GET_ALL_USER,
       payload1: data,
       payload2: total_pages,
+      payload3: data.page,
+      payload4: data.total,
     };
   }
   function failure(error) {
@@ -50,6 +57,30 @@ function getAllUser(page, per_page) {
 export const removeToken = () => ({
   type: userConnst.REMOVE_TOKEN,
 });
+
+function getDeleteUser(Id) {
+  return async (dispatch) => {
+    const response = await getDeleteUserService(Id);
+    debugger;
+    if (response && String(response.status).match(/20[01]/)) {
+      dispatch(success(response.data));
+      toast("success delete", {hideProgressBar: true, autoClose: 2000, type: "success"});
+    } else {
+      dispatch(failure(" FAILED!!!"));
+      toast("fail delete", {hideProgressBar: true, autoClose: 2000, type: "error"});
+    }
+  };
+
+  function success(data) {
+    return {
+      type: userConnst.GET_ALL_USER,
+      payload1: data,
+    };
+  }
+  function failure(error) {
+    return {type: userConnst.GET_ALL_USER_FAIL};
+  }
+}
 
 function getSingleUser(user) {
   return async (dispatch) => {
@@ -78,4 +109,5 @@ export const UserActions = {
   removeToken,
   getAllUser,
   getSingleUser,
+  getDeleteUser,
 };

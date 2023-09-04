@@ -38,17 +38,16 @@ export default function UserList() {
     classes,
     user,
     data,
-    column,
-    total_pages,
     dispatch,
   } = ListLogic();
+  const [Id, setId] = useState(null);
   const start = () => {
-    // ajax request after empty completing
+    dispatch(UserActions.getDeleteUser(Id));
   };
 
   const onSelectChange = (newSelectedRowKeys) => {
-    console.log("selectedRowKeys changed: ", newSelectedRowKeys);
-
+    console.log("selectedRowKeys changed: ", newSelectedRowKeys.toString());
+    setId(newSelectedRowKeys);
     setSelectedRowKeys(newSelectedRowKeys);
   };
 
@@ -71,15 +70,8 @@ export default function UserList() {
       dataIndex: "first_name",
     },
   ];
-  // const data1 = [];
-  // for (let i = 0; i < 46; i++) {
-  //   data1.push({
-  //     key: i,
-  //     name: `Edward King ${i}`,
-  //     age: 32,
-  //     address: `London, Park Lane no. ${i}`,
-  //   });
-  // }
+
+  let total = user.total;
   return (
     <main className={styles.main}>
       <Suspense fallback={<Loading />}>
@@ -102,9 +94,12 @@ export default function UserList() {
                 dataSource={data.users}
                 columns={columns}
                 pagination={{
-                  total_pages: {total_pages},
+                  pageSize: 10,
+                  total: total,
                   onChange: (p1, p2) => dispatch(UserActions.getAllUser(p1, p2)),
+                  // onChange: (p1, p2) => console.log(p1, p2),
                 }}
+                rowKey="id"
                 rowClassName="editable-row"
               />
               {/* <EnhancedTable /> */}

@@ -19,7 +19,8 @@ const ListLogic = (history) => {
   const [data, setData] = useState({users: null});
   const [column, setColumn] = useState(null);
   const classes = useStyles();
-  const [total_pages, settotal_pages] = useState(null);
+  const [total_pages, settotal_pages] = useState(1);
+  const [page, setPage] = useState(null);
   const {user, dispatch} = useRedux();
   /*---------------------- states ------------------- */
 
@@ -36,12 +37,12 @@ const ListLogic = (history) => {
       columnKey.map((itm) => ({
         title: itm,
         dataIndex: itm,
-        key: itm,
         editable: true,
       }));
 
     setColumn(customecolumn);
     settotal_pages(user.total_pages);
+    setPage(user.page);
   }, [user.allUser, user.total_pages]);
 
   useEffect(() => {
@@ -96,6 +97,7 @@ const ListLogic = (history) => {
     column,
     dispatch,
     total_pages,
+    page,
   };
 };
 

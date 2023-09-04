@@ -3,6 +3,8 @@ import baseReducer from "./baseReducer";
 
 const initialState = {
   total_pages: null,
+  total: null,
+  page: null,
   token: null,
   isAuth: false,
   user: null,
@@ -17,7 +19,13 @@ const user = baseReducer(initialState, {
     return {...state, token: null, isAuth: false};
   },
   [userConnst.GET_ALL_USER](state, action) {
-    return {...state, allUser: action.payload1.data, total_pages: action.payload2};
+    return {
+      ...state,
+      allUser: action.payload1.data,
+      total_pages: action.payload2,
+      page: action.payload3,
+      total: action.payload4,
+    };
   },
   [userConnst.GET_SINGLE_USER](state, action) {
     return {...state, SingleUser: action.payload};
