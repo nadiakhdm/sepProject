@@ -1,10 +1,9 @@
-import {useState, useEffect} from "react";
+import {useState} from "react";
 import {makeStyles} from "@mui/styles";
-
 import useRedux from "../../customHooks/useRedux";
-
-import {UserActions} from "@/actions/user";
+import {UserActions} from "@/redux/actions/user";
 import {useRouter} from "next/navigation";
+
 const useStyles = makeStyles({
   main: {
     display: "flex",
@@ -49,8 +48,7 @@ const useStyles = makeStyles({
   },
 });
 const LoginLogic = () => {
-  const router = useRouter();
-  const {user, dispatch} = useRedux();
+  const {dispatch} = useRedux();
   /*---------------------- states ------------------- */
   const [state, setState] = useState({
     email: "",
@@ -58,11 +56,6 @@ const LoginLogic = () => {
   });
   const classes = useStyles();
 
-  useEffect(() => {
-    if (user.isAuth) {
-      router.push("/");
-    }
-  }, [user.isAuth]);
   /*-------------------- functions ------------------ */
 
   const handleChange = (e) => {
@@ -74,6 +67,7 @@ const LoginLogic = () => {
   const onFinish = async () => {
     await dispatch(UserActions.getToken(state));
   };
+
   /*------------------------------------------------- */
   return {
     handleChange,

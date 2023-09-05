@@ -1,87 +1,65 @@
 "use client";
 
-import {Suspense} from "react";
-import {Button, Col, Input, Row, Table} from "antd";
+import {Suspense, useState} from "react";
+import {Button, Form, Input, Table} from "antd";
 import {Grid} from "@mui/material";
 //component
 import styles from "./page.module.css";
 import AddModal from "@/components/Modal";
 import {Loading} from "./loading";
 import ListLogic from "./Listlogic";
+import {UserActions} from "@/redux/actions/user";
+import ComponentWrapper from "../components/componentWraper";
 
-const columns = [
-  {
-    title: "Name",
-    dataIndex: "name",
-  },
-  {
-    title: "Age",
-    dataIndex: "age",
-  },
-  {
-    title: "Address",
-    dataIndex: "address",
-  },
-];
-const data = [];
-for (let i = 0; i < 46; i++) {
-  data.push({
-    key: i,
-    name: `Edward King ${i}`,
-    age: 32,
-    address: `London, Park Lane no. ${i}`,
-  });
-}
-export default function UserList() {
+function UserList() {
   const {
     User,
-    loading,
-    router,
-    selectedRowKeys,
+    user,
+    hasSelected,
+    rowSelection,
+    start,
     handleChange,
     handleAddUser,
     HandleCloseAddModal,
     OpenAddModal,
     HandleOpenAddModal,
-    start,
-    onSelectChange,
-    rowSelection,
-    hasSelected,
+    data,
     classes,
+    column,
+    dispatch,
   } = ListLogic();
 
+  let total = user.total;
   return (
     <main className={styles.main}>
       <Suspense fallback={<Loading />}>
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <div>
+              <Button type="primary" className={classes.btn} onClick={HandleOpenAddModal}>
+                add User
+              </Button>
               <Button
                 type="primary"
                 className={classes.btn}
                 onClick={start}
                 disabled={!hasSelected}
-                loading={loading}
               >
-                Delete
-              </Button>
-              <Button type="primary" className={classes.btn} onClick={HandleOpenAddModal}>
-                add User
-              </Button>
-              <span
-                style={{
-                  marginLeft: 8,
+                delete
+              </Button>{" "}
+              <Table
+                rowSelection={rowSelection}
+                dataSource={data.users}
+                columns={column}
+                pagination={{
+                  pageSize: 10,
+                  total: total,
+                  onChange: (p1, p2) => dispatch(UserActions.getAllUser(p1, p2)),
                 }}
-              >
-                {hasSelected ? `Selected ${selectedRowKeys.length} items` : ""}
-              </span>
+                rowKey="id"
+                rowClassName="editable-row"
+              />
             </div>
-            <Table
-              rowSelection={rowSelection}
-              columns={columns}
-              dataSource={data}
-              pagination={false}
-            />
           </Grid>
 
           <AddModal
@@ -105,5 +83,5 @@ export default function UserList() {
       </Suspense>
     </main>
   );
-  ر;
 }
+export default ComponentWrapper(UserList);

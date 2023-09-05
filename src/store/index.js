@@ -4,7 +4,7 @@ import storage from "redux-persist/lib/storage";
 import thunk from "redux-thunk";
 
 import {composeWithDevTools} from "redux-devtools-extension";
-import reducer from "@/reducer/combiner";
+import reducer from "@/redux/reducer/combiner";
 
 const persistConfig = {
   key: "sep-app",

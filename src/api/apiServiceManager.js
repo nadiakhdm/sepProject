@@ -4,7 +4,6 @@ class ApiService {
     this._method = "GET";
     this._headers = {"Content-Type": "application/json"};
   }
-
   get authToken() {
     return this._authToken;
   }

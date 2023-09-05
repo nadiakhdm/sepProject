@@ -76,3 +76,8 @@ input:focus,
   color: blueviolet !important;
   border-color: blueviolet !important;
 }
+.editable-row .ant-form-item-explain {
+  position: absolute;
+  top: 100%;
+  font-size: 12px;
+}
