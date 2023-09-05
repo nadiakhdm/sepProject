@@ -9,7 +9,6 @@ const getokenService = async (usr) => {
     const request = apiService.getRequest();
     const response = await axiosInctanc({url: `${SepApi}/api/login`, ...request});
     if (response && String(response.status).match(/20[01]/)) {
-      router.push("/");
       return response;
     }
   } catch (error) {

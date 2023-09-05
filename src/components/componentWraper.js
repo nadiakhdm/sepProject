@@ -6,13 +6,13 @@ const ComponentCover = (WrappedComponent) => {
   const ComponentWrapper = (props) => {
     const {user} = useRedux();
     const router = useRouter();
-    // useEffect(() => {
-    //   if (user.token === null) {
-    //     router.push("/login");
-    //   } else if (user.token !== null) {
-    //     router.push("/");
-    //   }
-    // }, [user.token]);
+    useEffect(() => {
+      if (user.token === null) {
+        router.push("/login");
+      } else if (user.token !== null) {
+        router.push("/");
+      }
+    }, [user.token]);
 
     return (
       <>
