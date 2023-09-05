@@ -2,7 +2,6 @@ import {useState} from "react";
 import {makeStyles} from "@mui/styles";
 import useRedux from "../../customHooks/useRedux";
 import {UserActions} from "@/redux/actions/user";
-import {useRouter} from "next/navigation";
 
 const useStyles = makeStyles({
   main: {

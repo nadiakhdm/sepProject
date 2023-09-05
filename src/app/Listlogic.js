@@ -30,7 +30,10 @@ const ListLogic = () => {
   }, []);
 
   useEffect(() => {
-    setData({...data, users: user.allUser && user.allUser});
+    if (user.token && user.token !== null) {
+      setData({...data, users: user.allUser && user.allUser});
+    }
+
     const keysArray = user.allUser && user.allUser.map((obj) => Object.keys(obj));
     let columnKey = keysArray && keysArray[1];
     var customecolumn =
@@ -85,6 +88,7 @@ const ListLogic = () => {
   };
   const start = () => {
     dispatch(UserActions.getDeleteUser(Id));
+    setSelectedRowKeys([]);
   };
   const hasSelected = selectedRowKeys.length > 0;
   /*------------------------------------------------- */
