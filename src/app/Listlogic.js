@@ -88,6 +88,7 @@ const ListLogic = () => {
   };
   const start = () => {
     dispatch(UserActions.getDeleteUser(Id));
+    setSelectedRowKeys([]);
   };
   const hasSelected = selectedRowKeys.length > 0;
   /*------------------------------------------------- */
