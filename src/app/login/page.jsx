@@ -2,9 +2,9 @@
 import {Form, Input, Button} from "antd";
 import {LockOutlined, UserOutlined} from "@ant-design/icons";
 import {Suspense} from "react";
-import Loading from "./loading";
 import LoginLogic from "./loginLogic";
 import ComponentWrapper from "../../components/componentWraper";
+import Loading from "../loading";
 function Login() {
   const {handleChange, onFinish, classes} = LoginLogic();
   return (
