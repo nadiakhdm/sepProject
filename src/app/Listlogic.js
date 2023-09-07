@@ -26,7 +26,9 @@ const ListLogic = () => {
   const router = useRouter();
 
   useEffect(() => {
-    dispatch(UserActions.getAllUser(ESP_LIST_VIEW_PARAMS.page, ESP_LIST_VIEW_PARAMS.per_page));
+    if (user.token && user.token !== null) {
+      dispatch(UserActions.getAllUser(ESP_LIST_VIEW_PARAMS.page, ESP_LIST_VIEW_PARAMS.per_page));
+    }
   }, []);
 
   useEffect(() => {
@@ -62,6 +64,10 @@ const ListLogic = () => {
       UserActions.getAllUser(ESP_LIST_VIEW_PARAMS.page, ESP_LIST_VIEW_PARAMS.per_page)
     );
     setOpenAddModal(false);
+    setUser({
+      name: "",
+      job: "",
+    });
   };
   const signout = () => {
     dispatch(UserActions.removeToken());
@@ -86,7 +92,7 @@ const ListLogic = () => {
     selectedRowKeys,
     onChange: onSelectChange,
   };
-  const start = () => {
+  const handleSelectUser = () => {
     dispatch(UserActions.getDeleteUser(Id));
     setSelectedRowKeys([]);
   };
@@ -97,7 +103,7 @@ const ListLogic = () => {
     user,
     hasSelected,
     rowSelection,
-    start,
+    handleSelectUser,
     handleChange,
     handleAddUser,
     HandleCloseAddModal,

@@ -32,7 +32,7 @@ function getAllUser(page, per_page) {
       dispatch(success(response.data, response.data.total_pages));
     } else {
       dispatch(failure(" FAILED!!!"));
-      toast("fail login", {hideProgressBar: true, autoClose: 2000, type: "error"});
+      toast("fail connect to all user", {hideProgressBar: true, autoClose: 2000, type: "error"});
     }
   };
 
@@ -83,7 +83,7 @@ function getSingleUser(user) {
       toast("success addUser", {hideProgressBar: true, autoClose: 2000, type: "success"});
     } else {
       dispatch(failure(" FAILED!!!"));
-      toast("fail login", {hideProgressBar: true, autoClose: 2000, type: "error"});
+      toast("fail Adduser", {hideProgressBar: true, autoClose: 2000, type: "error"});
     }
   };
 
