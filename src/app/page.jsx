@@ -1,7 +1,7 @@
 "use client";
 
-import {Suspense, useState} from "react";
-import {Button, Form, Input, Table} from "antd";
+import {Suspense} from "react";
+import {Button, Input, Table} from "antd";
 import {Grid} from "@mui/material";
 //component
 import styles from "./page.module.css";
@@ -17,7 +17,7 @@ function UserList() {
     user,
     hasSelected,
     rowSelection,
-    start,
+    handleSelectUser,
     handleChange,
     handleAddUser,
     HandleCloseAddModal,
@@ -43,7 +43,7 @@ function UserList() {
                 <Button
                   type="primary"
                   className={classes.btn}
-                  onClick={start}
+                  onClick={handleSelectUser}
                   disabled={!hasSelected}
                 >
                   delete
