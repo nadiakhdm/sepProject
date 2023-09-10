@@ -1,37 +1,27 @@
 {
-  "name": "sepproject",
-  "version": "1.0.0",
-  "description": "This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).",
-  "main": "next.config.js",
- 
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/nadiakhdm/sepProject.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/nadiakhdm/sepProject/issues"
-  },
-  "homepage": "https://github.com/nadiakhdm/sepProject#readme",
+  "name": "sep-project",
+  "version": "0.1.0",
+  "private": true,
   "scripts": {
-    "dev": " next dev",
+    "dev": "next dev",
     "build": "next build",
-    "handleSelectUser": "next handleSelectUser",
+    "start": "next start",
     "lint": "next lint"
-},
+  },
   "dependencies": {
     "@ant-design/cssinjs": "^1.17.0",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
-    "@mui/material": "^5.14.8",
+    "@mui/material": "^5.14.7",
     "@mui/styles": "^5.14.7",
-    "antd": "^5.9.0",
-    "next": "^13.4.19",
-    "next-redux-wrapper": "^8.1.0",
-    "next-router": "^1.3.6",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
+    "@next/env": "^13.4.19",
+    "antd": "^5.8.5",
+    "axios": "^1.5.0",
+    "eslint": "8.49.0",
+    "eslint-config-next": "13.4.19",
+    "next": "13.4.19",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
     "react-redux": "^8.1.2",
     "react-toastify": "^9.1.3",
     "redux": "^4.2.1",

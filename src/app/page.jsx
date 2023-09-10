@@ -6,7 +6,7 @@ import {Grid} from "@mui/material";
 //component
 import styles from "./page.module.css";
 import AddModal from "@/components/Modal";
-import {Loading} from "./loading";
+import Loading from "./loading";
 import ListLogic from "./Listlogic";
 import {UserActions} from "@/redux/actions/user";
 import ComponentWrapper from "../components/componentWraper";

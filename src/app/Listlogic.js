@@ -44,10 +44,10 @@ const ListLogic = () => {
         title: itm,
         dataIndex: itm,
         editable: true,
-        render: (text, record, index) => {
-          if (itm == "avatar") return <img src={record.avatar} />;
-          else return itm;
-        },
+        // render: (text, record, index) => {
+        //   if (itm == "avatar") return <img src={record.avatar} />;
+        //   else return itm;
+        // },
       }));
 
     setColumn(customecolumn);
